@@ -79,6 +79,16 @@ let
 
       enable = mkEnableOption "Pump.io social streams server";
 
+      package = mkOption {
+        type = types.package;
+        example = literalExample "pkgs.pumpio";
+        default = pkgs.callPackage ./pkg {};
+        defaultText = "pkgs.callPackage ./pkg {}";
+        description = ''
+          pump.io package to use.
+        '';
+      };
+
       secret = mkOption {
         type = types.nullOr types.str;
         default = null;
@@ -418,7 +428,7 @@ let
         '';
 
         serviceConfig = {
-          ExecStart = "${pkgs.pumpio}/bin/pump -c ${configOptions.outputFile}";
+          ExecStart = "${cfg.package}/bin/pump -c ${configOptions.outputFile}";
           PermissionsStartOnly = true;
           User = if cfg.port < 1024 then "root" else user;
           Group = user;
@@ -426,16 +436,13 @@ let
         environment = { NODE_ENV = "production"; };
       };
 
-      users.extraGroups.pumpio.gid = config.ids.gids.pumpio;
-      users.extraUsers.pumpio = {
-        group = "pumpio";
-        uid = config.ids.uids.pumpio;
-        description = "Pump.io user";
-        home = dataDir;
-        createHome = true;
-      };
+    users.extraGroups.pumpio.gid = 216;
+    users.extraUsers.pumpio = {
+      group = "pumpio";
+      uid = 216;
+      description = "Pump.io user";
+      home = dataDir;
+      createHome = true;
+    };
   };
-
-  config.ids.uids.pumpio = 216;
-  config.ids.gids.pumpio = 216;
 }

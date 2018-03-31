@@ -5,8 +5,8 @@
   }, system ? builtins.currentSystem, nodejs ? pkgs."nodejs-4_x"}:
 
 let
-  nodeEnv = import ../../../development/node-packages/node-env.nix {
-    inherit (pkgs) stdenv python2 utillinux runCommand writeTextFile;
+  nodeEnv = import <nixpkgs/pkgs/development/node-packages/node-env.nix> {
+    inherit (pkgs) stdenv python2 utillinux runCommand writeTextFile libtool;
     inherit nodejs;
   };
 in

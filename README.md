@@ -1,6 +1,6 @@
 # pump.io Module for NixOS
 
-*Draft at the moment*
+Version 3.0.0.
 
 ## Requirements
 
@@ -23,7 +23,7 @@ Add the following to your `configuration.nix`:
     ownerURL = "https://me.name";
     disableRegistration = false;
     dbName = "pumpio";
-    port = 443;
+    port = 31337;
     hostname = "me.name";
     sslCert = "/run/keys/snakeoil.cert";
     sslKey = "/run/keys/snakeoil.key";
@@ -38,10 +38,10 @@ Add the following to your `configuration.nix`:
 
 ## Running tests
 
-    nix build -f release.nix test.x86_64-linux
+    nix build -f test.nix
 
 ## Updating package version
 
 For a new upstream release.
 
-    $(nix build --no-out-link updater)/bin/update
+    $(nix build --no-out-link pkg/updater.nix)/bin/update

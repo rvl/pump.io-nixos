@@ -1,6 +1,6 @@
 # This test runs pump.io with mongodb, listing on port 443.
 
-import ./make-test.nix ({ pkgs, ...} : let
+import <nixpkgs/nixos/tests/make-test.nix> ({ pkgs, ...} : let
   snakeOilKey = ''
     -----BEGIN PRIVATE KEY-----
     MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCqVemio78R41Tz
@@ -52,7 +52,7 @@ import ./make-test.nix ({ pkgs, ...} : let
     -----END CERTIFICATE-----
   '';
 in {
-  name = "pumpio";
+  name = "pump.io";
   meta = with pkgs.stdenv.lib.maintainers; {
     maintainers = [ rvl ];
   };
@@ -61,6 +61,8 @@ in {
     one =
       { config, pkgs, ... }:
         {
+          imports = [ ./module.nix ];
+
           services = {
            pumpio = {
              port = 443;
