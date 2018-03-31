@@ -1,6 +1,8 @@
 # pump.io Module for NixOS
 
-Version 3.0.0.
+[pump.io][] - Social server with an ActivityStreams API.
+
+Version 5.1.0.
 
 ## Requirements
 
@@ -42,6 +44,14 @@ Add the following to your `configuration.nix`:
 
 ## Updating package version
 
-For a new upstream release.
+When there is a new upstream release:
 
-    $(nix build --no-out-link pkg/updater.nix)/bin/update
+    ./pkgs/generate.sh VERSION
+    nix build -f ./pkgs/composition.nix package
+
+This will fetch the given version of [pump.io from npm][npm] and
+re-run [node2nix][].
+
+[pump.io]: http://pump.io
+[npm]: https://npmjs.com/package/pump.io
+[node2nix]: https://github.com/svanderburg/node2nix
