@@ -26,14 +26,11 @@ Add the following to your `configuration.nix`:
     disableRegistration = false;
     dbName = "pumpio";
     port = 31337;
-    hostname = "me.name";
     sslCert = "/run/keys/snakeoil.cert";
     sslKey = "/run/keys/snakeoil.key";
   };
  
   services.mongodb.enable = true;
-
-  networking.firewall.allowedTCPPorts = [ 443 ];
 }
 ```
 
